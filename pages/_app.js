@@ -107,8 +107,6 @@ export default function App({ Component, pageProps }) {
   const filteredActivities = activities.filter(({ categories }) =>
     categories.some((category) => filter.includes(category))
   );
-
-  const [showInstallButton, setShowInstallButton] = useState(true);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   useEffect(() => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -120,7 +118,6 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
   const [isInstallable, setIsInstallable] = useState(false);
-
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
@@ -156,7 +153,7 @@ export default function App({ Component, pageProps }) {
         activities={filter.length === 0 ? activities : filteredActivities}
         handleFilter={handleFilter}
         filter={filter}
-        showInstallButton={showInstallButton}
+        showInstallButton={isInstallable}
         install={handleInstallClick}
         {...pageProps}
       />
