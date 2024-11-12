@@ -10,6 +10,7 @@ import {
   FaAnkh,
   FaAtlas,
   FaHome,
+  FaStar,
   FaWalking,
 } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
@@ -168,17 +169,19 @@ export default function App({ Component, pageProps }) {
       <MenuFooterContainer>
         <StyledUl>
           <StyledLi>
-            <Link href="/activities">
+            <StyledLink href="/activities">
               Activities <FaWalking />
-            </Link>
+            </StyledLink>
           </StyledLi>
           <StyledLi2>
-            <Link href="/">
+            <StyledLink href="/">
               <FaHome />
-            </Link>
+            </StyledLink>
           </StyledLi2>
           <StyledLi>
-            <Link href="/my-favorites">My Favorites</Link>
+            <StyledLink href="/my-favorites">
+              Favorites <FaStar />
+            </StyledLink>
           </StyledLi>
         </StyledUl>
       </MenuFooterContainer>
@@ -207,7 +210,7 @@ const StyledUl = styled.ul`
   align-items: center;
   list-style: none;
   border: solid 1px #ccc;
-  height: 50px;
+  height: 80px;
   width: 100%;
 `;
 
@@ -216,14 +219,14 @@ const StyledLi = styled.li`
   width: 100%;
   height: 100%;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
 `;
 const StyledLi2 = styled.li`
   border: solid 1px #ccc;
   width: 20%;
   height: 100%;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
 `;
 const styledButton = styled.button`
   position: fixed;
@@ -237,4 +240,13 @@ const styledButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   background: linear-gradient(to right, #4776e6, #8e54e9);
+`;
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
 `;
