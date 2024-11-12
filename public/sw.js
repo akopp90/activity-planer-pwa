@@ -24,7 +24,7 @@ const showSplashScreen = () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #ffffff url('/splash.png') no-repeat center center;
+    background: #ffffff url('/logo.png') no-repeat center center;
     background-size: cover;
     z-index: 9999;
   `;

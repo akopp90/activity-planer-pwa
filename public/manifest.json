@@ -4,8 +4,8 @@
   "description": "A simple PWA built with React and Next.js",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#fff",
+  "theme_color": "#fff",
   "icons": [
     {
       "src": "/logo.png",
