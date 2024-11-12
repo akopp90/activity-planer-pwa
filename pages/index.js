@@ -42,7 +42,7 @@ export default function ActivityPage({
           </InstallPrompt>
         )}
 
-        {showInstallPromt && (
+        {showInstallPrompt && (
           <InstallButton onClick={install}>Install App</InstallButton>
         )}
         <SloganContainer>Your new adventure starts here ...</SloganContainer>
