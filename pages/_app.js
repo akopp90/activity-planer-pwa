@@ -119,16 +119,29 @@ export default function App({ Component, pageProps }) {
       });
     }
   }, []);
+  const [isInstallable, setIsInstallable] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+    });
+
+    window.addEventListener("appinstalled", () => {
+      setIsInstallable(false);
+      setDeferredPrompt(null);
+    });
+  }, []);
   const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const result = await deferredPrompt.userChoice;
-      if (result.outcome === "accepted") {
-        setDeferredPrompt(null);
-      }
-      console.log(`Installation ${result.outcome}`);
-      setShowInstallButton(false);
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === "accepted") {
+      setIsInstallable(false);
+      setDeferredPrompt(null);
     }
   };
   return (
