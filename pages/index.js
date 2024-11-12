@@ -9,7 +9,7 @@ export default function ActivityPage({
   activities,
   toggleBookmark,
   bookmarks,
-  showInstallButton,
+  showInstallPrompt,
   install,
 }) {
   const [randomActivities, setRandomActivities] = useState([]);
@@ -33,7 +33,16 @@ export default function ActivityPage({
       <Header>Activity Planner</Header>
 
       <Container>
-        {showInstallButton && (
+        {showInstallPrompt && (
+          <InstallPrompt>
+            <p>Install Super Activities for a better experience!</p>
+            <Button onClick={install} isPrimary>
+              Add to Home Screen
+            </Button>
+          </InstallPrompt>
+        )}
+
+        {showInstallPromt && (
           <InstallButton onClick={install}>Install App</InstallButton>
         )}
         <SloganContainer>Your new adventure starts here ...</SloganContainer>
@@ -151,4 +160,20 @@ const InstallButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   background: linear-gradient(to right, #4776e6, #8e54e9);
+`;
+const InstallPrompt = styled.div`
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+  max-width: 90%;
+  text-align: center;
 `;

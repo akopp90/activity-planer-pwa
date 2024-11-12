@@ -108,6 +108,7 @@ export default function App({ Component, pageProps }) {
     categories.some((category) => filter.includes(category))
   );
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   useEffect(() => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
       window.addEventListener("beforeinstallprompt", (e) => {
@@ -117,19 +118,25 @@ export default function App({ Component, pageProps }) {
       });
     }
   }, []);
-  const [isInstallable, setIsInstallable] = useState(false);
+
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setIsInstallable(true);
+      setShowInstallPrompt(true);
     });
 
     window.addEventListener("appinstalled", () => {
-      setIsInstallable(false);
+      setShowInstallPrompt(false);
       setDeferredPrompt(null);
     });
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", () => {});
+      window.removeEventListener("appinstalled", () => {});
+    };
   }, []);
+
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
@@ -137,9 +144,9 @@ export default function App({ Component, pageProps }) {
     const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === "accepted") {
-      setIsInstallable(false);
-      setDeferredPrompt(null);
+      setShowInstallPrompt(false);
     }
+    setDeferredPrompt(null);
   };
   return (
     <>
@@ -153,7 +160,7 @@ export default function App({ Component, pageProps }) {
         activities={filter.length === 0 ? activities : filteredActivities}
         handleFilter={handleFilter}
         filter={filter}
-        showInstallButton={isInstallable}
+        showInstallPrompt={showInstallPrompt}
         install={handleInstallClick}
         {...pageProps}
       />
